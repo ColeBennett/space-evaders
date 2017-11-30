@@ -5,9 +5,9 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-// base class (for leaderboard, game end screen, main menu, etc)
 class Menu
 {
+
 
 };
 

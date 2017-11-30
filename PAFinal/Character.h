@@ -20,8 +20,6 @@ public:
 		/* Load and set the texture for the sprite */
 		if (texture.loadFromFile("character.png")) {
 			this->setTexture(texture);
-		} else {
-			std::cerr << "failed to load character image" << std::endl;
 		}
 	}
 };

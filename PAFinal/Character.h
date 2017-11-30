@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+
 class Character : public sf::Sprite
 {
 private:
@@ -17,11 +18,8 @@ public:
 		this->setScale(0.5, 0.5);
 
 		/* Load and set the texture for the sprite */
-		if (texture.loadFromFile("C:\\Users\\NoahJ\\Documents\\GitHub\\PA92\\PA9\\character.png")) {
+		if (texture.loadFromFile("character.png")) {
 			this->setTexture(texture);
-		}
-		else {
-			std::cerr << "failed to load character image" << std::endl;
 		}
 	}
 };

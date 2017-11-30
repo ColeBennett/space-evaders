@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+
 class Wall : public sf::RectangleShape
 {
 public:

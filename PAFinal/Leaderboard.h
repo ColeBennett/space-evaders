@@ -3,6 +3,7 @@
 
 #include "Menu.h"
 #include <SFML/Graphics.hpp>
+
 class Leaderboard : public Menu
 {
 

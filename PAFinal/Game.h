@@ -1,7 +1,7 @@
 #ifndef PA9_GAME_H
 #define PA9_GAME_H
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
 #include "Character.h"

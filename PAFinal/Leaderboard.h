@@ -4,9 +4,9 @@
 #include "View.h"
 #include <SFML/Graphics.hpp>
 
-class Leaderboard : public Menu
-{
-
-};
+//class Leaderboard : public Menu
+//{
+//
+//};
 
 #endif

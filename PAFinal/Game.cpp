@@ -43,11 +43,11 @@ void Game::run()
     gameTitle.setPosition((width / 2) - (gameTitle.getGlobalBounds().width / 2), (float) (height * .1));
 
     sf::Text play("play", font, 80);
-    play.setFillColor(sf::Color(166, 170, 178));
+    play.setColor(sf::Color(166, 170, 178));
     play.setPosition((width / 2) - (play.getGlobalBounds().width / 2), (float) (height * .225));
 
     sf::Text leaderboard("lead", font, 80);
-    leaderboard.setFillColor(sf::Color(166, 170, 178));
+    leaderboard.setColor(sf::Color(166, 170, 178));
     leaderboard.setPosition((width / 2) - (leaderboard.getGlobalBounds().width / 2), (float) (height * .325));
 
     long fpsPerSec = 0;

@@ -1,4 +1,4 @@
-# SFMLFinal
+# SpaceEvaders
 
 Team Members:
 - Cole Bennet, Lab Section 2

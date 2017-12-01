@@ -1,12 +1,14 @@
-#ifndef PA9_LEADERBOARD_H
-#define PA9_LEADERBOARD_H
+#ifndef SPACEEVADERS_LEADERBOARD_H
+#define SPACEEVADERS_LEADERBOARD_H
 
 #include "View.h"
-#include <SFML/Graphics.hpp>
 
-//class Leaderboard : public Menu
-//{
-//
-//};
+class LeaderboardView : public View
+{
+
+public:
+    LeaderboardView(sf::RenderWindow &window);
+    void draw(sf::RenderWindow &window);
+};
 
 #endif

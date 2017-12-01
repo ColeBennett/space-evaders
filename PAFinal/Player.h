@@ -1,11 +1,9 @@
-#ifndef PA9_CHARACTER_H
-#define PA9_CHARACTER_H
+#ifndef SPACEEVADERS_CHARACTER_H
+#define SPACEEVADERS_CHARACTER_H
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <vector>
+#include "Entity.h"
 
-class Character : public sf::Sprite
+class Player : public Entity
 {
 private:
 	/* The texture object must be defined as a member of this class
@@ -13,13 +11,14 @@ private:
 	sf::Texture texture;
 
 public:
-	Character() {
+	Player()
+	{
 		/* Make the sprite smaller (50% of the original image size) */
-		this->setScale(0.5, 0.5);
+		setScale(0.5, 0.5);
 
 		/* Load and set the texture for the sprite */
 		if (texture.loadFromFile("character.png")) {
-			this->setTexture(texture);
+			setTexture(texture);
 		}
 	}
 };

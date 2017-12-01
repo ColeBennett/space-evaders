@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "Engine.h"
 
 /**
 * This assignment is worth 300 points. Your assignment will be evaluated based on a successful compilation
@@ -14,7 +14,7 @@
 
 int main(int argc, char *argv[])
 {
-	Game game;
+	Engine game;
 	game.run();
 	return 0;
 }

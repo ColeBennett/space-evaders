@@ -7,16 +7,13 @@
 #include "../entity/Asteroid.h"
 #include "../entity/Monster.h"
 #include "../entity/Bullet.h"
-#include "../util/ParticleSystem.h"
 #include <vector>
 #include <cmath>
 
 class GameView : public View
 {
 private:
-    ParticleSystem *particleSystem;
     Player player;
-
     bool running;
 
     sf::Clock scoreClock, asteroidSpawnClock, asteroidSpawnRateClock,
@@ -35,7 +32,6 @@ private:
     std::vector<Monster> monsters;
 
     sf::RectangleShape bg;
-
     sf::RectangleShape top;
     sf::Text gameTitle, score, ammo, kills;
 
@@ -43,7 +39,6 @@ private:
 
 public:
     GameView(Engine &engine, sf::RenderWindow &window);
-    ~GameView();
     void reset(sf::Window &window);
     void fireBullet(Engine &engine);
     void tick(Engine &engine, sf::RenderWindow &window);

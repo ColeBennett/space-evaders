@@ -5,6 +5,10 @@
 #include "views/LeaderboardView.h"
 #include "views/TutorialView.h"
 
+/**
+ * Engine constructor. Load the background texture and
+ * read the scores file for the leaderboard.
+ */
 Engine::Engine()
 {
     sf::Texture *texture = new sf::Texture;
@@ -16,11 +20,17 @@ Engine::Engine()
     state = MENU;
 }
 
+/**
+ * Engine destructor.
+ */
 Engine::~Engine()
 {
     delete bgTexture;
 }
 
+/**
+ * Creates the window, handles the events, and draws the views to the window.
+ */
 void Engine::run()
 {
     window.create(sf::VideoMode(1600, 1400), "Space Evaders");
@@ -157,6 +167,10 @@ void Engine::run()
     }
 }
 
+/**
+ * Change the view to the game over screen.
+ * @param score the player's score
+ */
 void Engine::endGame(const float &score)
 {
     lastScore = score;
@@ -165,12 +179,25 @@ void Engine::endGame(const float &score)
     state = GAME_OVER;
 }
 
+/**
+ * Center text in the window.
+ * @param text the text to center
+ * @param y the y coordinate position
+ */
 void Engine::center(sf::Text &text, float y)
 {
     if (y == 0) y = window.getSize().y / 2;
     text.setPosition((window.getSize().x / 2) - (text.getGlobalBounds().width / 2), y);
 }
 
+/**
+ * Checks if a button is pressed and change the view.
+ * @param button 
+ * @param toState new state 
+ * @param buttonColor default button color
+ * @param highlightColor highlighted button color
+ * @return true if the button is pressed
+ */
 bool Engine::checkButton(sf::Text &button, const State &toState, const sf::Color &buttonColor, const sf::Color &highlightColor)
 {
     sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));

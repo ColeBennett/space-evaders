@@ -1,5 +1,10 @@
 #include "GameView.h"
 
+/**
+ * GameView constructor. Initialize all of the text objects and load the textures.
+ * @param engine
+ * @param window
+ */
 GameView::GameView(Engine &engine, sf::RenderWindow &window)
 {
     bg.setTexture(engine.getBgTexture());
@@ -32,25 +37,16 @@ GameView::GameView(Engine &engine, sf::RenderWindow &window)
 
     player.setSpeed(5);
 
-    particleSystem = new ParticleSystem(window.getSize().x, window.getSize().y);
-//    particleSystem->setGravity(1.0f, 1.0f);
-//    particleSystem->setParticleSpeed( 40.0f );
-//    particleSystem->setDissolve(true);
-//    particleSystem->setDissolutionRate(.01);
-//    particleSystem->setShape(Shape::CIRCLE);
-//    particleSystem->fuel(10000);
-
     bulletTexture.loadFromFile("assets/bullet.png");
     monsterBulletTexture.loadFromFile("assets/monster_bullet.png");
     monsterTexture.loadFromFile("assets/monster.png");
     asteroidTexture.loadFromFile("assets/asteroid.png");
 }
 
-GameView::~GameView()
-{
-    delete particleSystem;
-}
-
+/**
+ * Reset the game before it starts.
+ * @param window
+ */
 void GameView::reset(sf::Window &window)
 {
     asteroidSpeed = 1;
@@ -60,10 +56,14 @@ void GameView::reset(sf::Window &window)
     player.setDead(false);
     player.setKills(0);
     player.setAmmo(10);
-    player.setPosition(sf::Vector2f((window.getSize().x / 2) - player.getGlobalBounds().width,
-                                    window.getSize().y - player.getGlobalBounds().height));
+    player.setPosition(sf::Vector2f((window.getSize().x / 2) - (player.getGlobalBounds().width / 2),
+                       window.getSize().y - player.getGlobalBounds().height));
 }
 
+/**
+ *
+ * @param engine
+ */
 void GameView::fireBullet(Engine &engine)
 {
     if (player.getAmmo() > 0) {
@@ -134,19 +134,10 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
                     (bullet.getGlobalBounds().width / 2) - 2,
                     monsters[i].getPosition().y - (bullet.getGlobalBounds().height / 2));
 
-            float angle = atan(abs(player.getPosition().x - monsters[i].getPosition().x) / abs(player.getPosition().y - monsters[i].getPosition().y));
-
-            bullet.setSpeedX((monsters[i].getPosition().x - player.getPosition().x)/(monsters[i].getPosition().y - player.getPosition().y));
-            bullet.setSpeedY((monsters[i].getPosition().x - player.getPosition().x)/(monsters[i].getPosition().y - player.getPosition().y));
-
-            bullet.setRotation(angle);
-//
-//            if(bullet.getSpeedX()<0){
-//                bullet.rotate(45);
-//            }
-//            else if(bullet.getSpeedX()>0){
-//                bullet.rotate(315);
-//            }
+            float slope = (player.getPosition().x - monsters[i].getPosition().x) / (player.getPosition().y - monsters[i].getPosition().y);
+            bullet.setSpeedX(slope);
+            bullet.setSpeedY(slope);
+            bullet.setRotation(atan(abs(slope)));
             bullets.push_back(bullet);
             engine.getSoundManager().playShoot();
         }
@@ -161,7 +152,7 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
         }
     }
 
-    /* Prevent character from going off the screen */
+    /* prevent character from going off the screen */
     if (player.getPosition().x >= window.getSize().x - player.getGlobalBounds().width) {
         player.setPosition(window.getSize().x - player.getGlobalBounds().width, player.getPosition().y);
     }
@@ -176,6 +167,7 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
     }
 
     size_t i, j;
+    /* check of player runs into an asteroid */
     for (i = 0; i < asteroids.size(); i++) {
         if (asteroids[i].getGlobalBounds().contains(player.getPosition())
             || player.getGlobalBounds().contains(asteroids[i].getPosition())) {
@@ -184,7 +176,7 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
             return;
         }
     }
-
+    /* check if player runs into a monster */
     for (i = 0; i < monsters.size(); i++) {
         if (monsters[i].getGlobalBounds().contains(player.getPosition())
             || player.getGlobalBounds().contains(monsters[i].getPosition())) {
@@ -194,6 +186,7 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
         }
     }
 
+    /* move the bullets and check for collision into player and monsters */
     for (i = 0; i < bullets.size(); i++) {
         switch (bullets[i].getType()) {
             case PLAYER:
@@ -206,7 +199,6 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
 
         if (bullets[i].getPosition().y < 0) {
             erase(bullets, i);
-            std::cout << "bullets active: " << bullets.size() << std::endl;
             continue;
         }
 
@@ -217,8 +209,6 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
                         erase(asteroids, j);
                         erase(bullets, i);
                         engine.getSoundManager().playHit();
-//                particleSystem->setPosition(asteroids[i].getPosition().x, asteroids[i].getPosition().y);
-                        std::cout << "asteroids active: " << asteroids.size() << std::endl;
                     }
                 }
                 for (j = 0; j < monsters.size(); j++) {
@@ -227,7 +217,6 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
                         erase(bullets, i);
                         player.setKills(player.getKills() + 1);
                         engine.getSoundManager().playMonsterDeath();
-                        std::cout << "monsters active: " << asteroids.size() << std::endl;
                     }
                 }
                 break;
@@ -240,6 +229,7 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
         }
     }
 
+    /* move the asteroids and check if they go off the screen */
     for (i = 0; i < asteroids.size(); i++) {
         if (asteroids[i].getPosition().y > window.getSize().y) {
             erase(asteroids, i);
@@ -248,6 +238,7 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
         asteroids[i].move(0, asteroids[i].getSpeed());
     }
 
+    /* move the monsters and check if they go off the screen */
     for (i = 0; i < monsters.size(); i++) {
         monsters[i].move(monsters[i].getSpeed(), 0);
         if (monsters[i].getPosition().y <= 250) {
@@ -266,6 +257,10 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
     }
 }
 
+/**
+ * Player died and the game has ended.
+ * @param engine
+ */
 void GameView::playerDied(Engine &engine)
 {
     player.setDead(true);
@@ -279,6 +274,11 @@ void GameView::playerDied(Engine &engine)
     engine.endGame(score);
 }
 
+/**
+ * Draw all of the entities and text to the screen.
+ * @param engine
+ * @param window
+ */
 void GameView::draw(Engine &engine, sf::RenderWindow &window)
 {
     window.draw(bg);
@@ -296,11 +296,6 @@ void GameView::draw(Engine &engine, sf::RenderWindow &window)
     if (!player.isDead()) {
         window.draw(player);
     }
-
-//    particleSystem->remove();
-//    particleSystem->update();
-//    particleSystem->render();
-//    window.draw(particleSystem->getSprite());
 
     window.draw(top);
 

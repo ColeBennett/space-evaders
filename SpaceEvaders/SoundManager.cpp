@@ -1,5 +1,8 @@
 #include "SoundManager.h"
 
+/**
+ * Load all sound files.
+ */
 SoundManager::SoundManager()
 {
     themeBuffer.loadFromFile("assets/theme.wav");

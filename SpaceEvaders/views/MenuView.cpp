@@ -2,17 +2,11 @@
 
 MenuView::MenuView(Engine &engine, const sf::RenderWindow &window)
 {
-//    bg.setScale(window.getSize().x * 1.1f, window.getSize().y * 1.1f);
-//    if (clock.getElapsedTime().asMilliseconds() >= 25) {
-//        clock.restart();
-//        lastRotationAngle = engine.random(1, 360);
-//    }
     sf::Texture *texture = new sf::Texture;
     texture->loadFromFile("assets/bg_front.jpg");
     bgTexture = texture;
     bg.setTexture(texture);
     bg.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
-//    bg.rotate(lastRotationAngle);
 
     gameTitle.setString("space evaders");
     gameTitle.setFont(engine.getFont());

@@ -43,37 +43,37 @@ TutorialView::TutorialView(Engine &engine, sf::RenderWindow &window)
     up.setFont(engine.getFont());
     up.setFillColor(sf::Color::Yellow);
     up.setCharacterSize(30);
-    up.setPosition(window.getSize().x * .3f, window.getSize().y * .6f);
+    up.setPosition(window.getSize().x * .3f, window.getSize().y * .55f);
 
     down.setString("s: down");
     down.setFont(engine.getFont());
     down.setFillColor(sf::Color::Yellow);
     down.setCharacterSize(30);
-    down.setPosition(window.getSize().x * .6f, window.getSize().y * .6f);
+    down.setPosition(window.getSize().x * .6f, window.getSize().y * .55f);
 
     left.setString("a: left");
     left.setFont(engine.getFont());
     left.setFillColor(sf::Color::Yellow);
     left.setCharacterSize(30);
-    left.setPosition(window.getSize().x * .3f, window.getSize().y * .65f);
+    left.setPosition(window.getSize().x * .3f, window.getSize().y * .6f);
 
     right.setString("d: right");
     right.setFont(engine.getFont());
     right.setFillColor(sf::Color::Yellow);
     right.setCharacterSize(30);
-    right.setPosition(window.getSize().x * .6f, window.getSize().y * .65f);
+    right.setPosition(window.getSize().x * .6f, window.getSize().y * .6f);
 
     space.setString("space: shoot laser");
     space.setFont(engine.getFont());
     space.setFillColor(sf::Color::Yellow);
     space.setCharacterSize(30);
-    engine.center(space, window.getSize().y * .7f);
+    engine.center(space, window.getSize().y * .65f);
 
     toMenu.setString("to menu");
     toMenu.setFont(engine.getFont());
     toMenu.setFillColor(sf::Color::Green);
     toMenu.setCharacterSize(50);
-    engine.center(toMenu, window.getSize().y * .8f);
+    engine.center(toMenu, window.getSize().y * .73f);
 }
 
 void TutorialView::draw(Engine &engine, sf::RenderWindow &window)

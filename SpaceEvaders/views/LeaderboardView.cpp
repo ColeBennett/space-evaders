@@ -27,8 +27,7 @@ void LeaderboardView::draw(Engine &engine, sf::RenderWindow &window)
 
     float y = window.getSize().y * .25f;
     int position = 1;
-    LeaderBoardEntry *pCur = engine.getLeaderboard().getHeadPtr();
-
+    LeaderboardEntry *pCur = engine.getLeaderboard().getHeadPtr();
     while (pCur != nullptr && position <= 10) {
         std::string s;
         s += std::to_string(position++);
@@ -44,7 +43,7 @@ void LeaderboardView::draw(Engine &engine, sf::RenderWindow &window)
         text.setFont(engine.getFont());
         text.setString(s);
 
-        text.setPosition(window.getSize().x * 0.425f, y);
+        text.setPosition(window.getSize().x * 0.42f, y);
         window.draw(text);
 
         y += 60;

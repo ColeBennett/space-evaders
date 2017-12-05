@@ -1,4 +1,4 @@
-#include "LeaderBoardEntry.h"
+#include "LeaderboardEntry.h"
 #include <fstream>
 #include <stdlib.h>
 
@@ -10,8 +10,8 @@ public:
 	void insertInOrder(float score);
 	void printLeaderBoard();
 	void writeCSV();
-	LeaderBoardEntry *& getHeadPtr();
+	LeaderboardEntry *& getHeadPtr();
 private:
-	LeaderBoardEntry* pHead;
+	LeaderboardEntry* pHead;
 	std::fstream fileStream;
 };

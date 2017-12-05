@@ -19,19 +19,16 @@ MenuView::MenuView(Engine &engine, const sf::RenderWindow &window)
     play.setString("play");
     play.setFont(engine.getFont());
     play.setCharacterSize(75);
-    play.setFillColor(sf::Color(166, 170, 178));
     engine.center(play, window.getSize().y * .3f);
 
     leaderboard.setString("top scores");
     leaderboard.setFont(engine.getFont());
     leaderboard.setCharacterSize(75);
-    leaderboard.setFillColor(sf::Color(166, 170, 178));
     engine.center(leaderboard, window.getSize().y * .4f);
 
     tutorial.setString("rules");
     tutorial.setFont(engine.getFont());
     tutorial.setCharacterSize(75);
-    tutorial.setFillColor(sf::Color(166, 170, 178));
     engine.center(tutorial, window.getSize().y * .5f);
 
     exit.setString("exit");

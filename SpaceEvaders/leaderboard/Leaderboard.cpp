@@ -1,4 +1,4 @@
-#include "LeaderBoard.h"
+#include "Leaderboard.h"
 
 LeaderBoard::LeaderBoard() {
 	pHead = nullptr;
@@ -16,16 +16,16 @@ LeaderBoard::LeaderBoard() {
 
 LeaderBoard::~LeaderBoard() {
 	while (pHead != nullptr) {
-		LeaderBoardEntry * pTemp = pHead;
+		LeaderboardEntry * pTemp = pHead;
 		pHead = pHead->getNext();
 		delete pTemp;
 	}
 }
 
 void LeaderBoard::insertInOrder(float score) {
-	LeaderBoardEntry* pCur = pHead;
-	LeaderBoardEntry* pPrev = nullptr;
-	LeaderBoardEntry* newNode = new LeaderBoardEntry(score);
+	LeaderboardEntry* pCur = pHead;
+	LeaderboardEntry* pPrev = nullptr;
+	LeaderboardEntry* newNode = new LeaderboardEntry(score);
 	if (newNode != nullptr) {
 		if (pHead == nullptr) {
 			pHead = newNode;
@@ -48,16 +48,8 @@ void LeaderBoard::insertInOrder(float score) {
 	}
 }
 
-void LeaderBoard::printLeaderBoard() {
-	LeaderBoardEntry* pCur = pHead;
-	while (pCur != nullptr) {
-		std::cout << pCur->getScore() << std::endl;
-		pCur = pCur->getNext();
-	}
-}
-
 void LeaderBoard::writeCSV() {
-	LeaderBoardEntry* pCur = pHead;
+	LeaderboardEntry* pCur = pHead;
 	fileStream.open("scores.txt");
 	while (pCur->getNext() != nullptr) {
 		fileStream << pCur->getScore() << std::endl;
@@ -67,7 +59,7 @@ void LeaderBoard::writeCSV() {
 	fileStream.close();
 }
 
-LeaderBoardEntry *& LeaderBoard::getHeadPtr()
+LeaderboardEntry *& LeaderBoard::getHeadPtr()
 {
 	return pHead;
 }

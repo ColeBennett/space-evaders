@@ -24,6 +24,7 @@ private:
     sf::Texture asteroidTexture;
     sf::Texture monsterBulletTexture;
 
+    float monsterBulletSpeed;
     float asteroidSpeed;
     int asteroidSpawnRate;
 
@@ -39,7 +40,7 @@ private:
 
 public:
     GameView(Engine &engine, sf::RenderWindow &window);
-    void reset(sf::Window &window);
+    void reset(Engine &engine, sf::Window &window);
     void fireBullet(Engine &engine);
     void tick(Engine &engine, sf::RenderWindow &window);
     void draw(Engine &engine, sf::RenderWindow &window);

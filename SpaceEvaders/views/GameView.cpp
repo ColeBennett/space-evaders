@@ -47,17 +47,29 @@ GameView::GameView(Engine &engine, sf::RenderWindow &window)
  * Reset the game before it starts.
  * @param window
  */
-void GameView::reset(sf::Window &window)
+void GameView::reset(Engine &engine, sf::Window &window)
 {
-    asteroidSpeed = 1;
+    monsterBulletSpeed = 6.0f;
+    asteroidSpeed = 1.2f;
     asteroidSpawnRate = 500;
 
     scoreClock.restart();
+    asteroidSpawnClock.restart();
+    asteroidSpawnRateClock.restart();
+    monsterSpawnClock.restart();
+    monsterShootClock.restart();
+    ammoRegenClock.restart();
+
     player.setDead(false);
     player.setKills(0);
     player.setAmmo(10);
+
+    /* position the player bottom center */
     player.setPosition(sf::Vector2f((window.getSize().x / 2) - (player.getGlobalBounds().width / 2),
                        window.getSize().y - player.getGlobalBounds().height));
+
+    engine.getSoundManager().stopGameOverTheme();
+    engine.getSoundManager().playTheme();
 }
 
 /**
@@ -79,31 +91,39 @@ void GameView::fireBullet(Engine &engine)
     }
 }
 
+/**
+ * Update movements and check for collisions.
+ * @param engine
+ * @param window
+ */
 void GameView::tick(Engine &engine, sf::RenderWindow &window)
 {
     if (!running) {
-        reset(window);
+        reset(engine, window);
         running = true;
     }
 
-    /* spawn asteroid */
-    if (asteroidSpawnClock.getElapsedTime().asMilliseconds() >= 10000) {
-        if (asteroidSpawnRate >= 300) {
-            asteroidSpawnRate -= 30;
+    /* modify asteroid spawn rate and speed */
+    if (asteroidSpawnRateClock.getElapsedTime().asMilliseconds() >= 5000) {
+        if (asteroidSpawnRate >= 250) {
+            asteroidSpawnRate -= 10;
         }
+        std::cout << "asteroid spawn rate " << asteroidSpawnRate << " ms" << std::endl;
+        if (asteroidSpeed < 5.5) {
+            asteroidSpeed += 0.1f;
+        }
+        std::cout << "asteroid speed " << asteroidSpeed << std::endl;
         asteroidSpawnRateClock.restart();
     }
-    if (asteroidSpawnClock.getElapsedTime().asMilliseconds() >= asteroidSpawnRate) {
-        if (asteroidSpeed < 2) {
-            asteroidSpeed += 0.09f;
-        }
 
+    /* spawn asteroid */
+    if (asteroidSpawnClock.getElapsedTime().asMilliseconds() >= asteroidSpawnRate) {
         Asteroid asteroid;
         asteroid.setSpeed(asteroidSpeed);
         float size = (float) engine.random(0.5f, 0.8f);
         asteroid.setScale(size, size);
         asteroid.setTexture(asteroidTexture);
-        asteroid.setPosition((float) engine.random(asteroid.getGlobalBounds().width / 2, window.getSize().x - 50), 0);
+        asteroid.setPosition((float) engine.random(0.0, window.getSize().x - asteroid.getGlobalBounds().width), 0);
         asteroids.push_back(asteroid);
         asteroidSpawnClock.restart();
     }
@@ -117,6 +137,10 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
             monster.setScale(size, size);
             monster.setTexture(monsterTexture);
             monster.setPosition((float) engine.random(monster.getGlobalBounds().width, window.getSize().x - 50), 0);
+
+            /* increase the monster bullet speed for each new monster */
+            monsterBulletSpeed += 0.15f;
+
             engine.getSoundManager().playMonsterSpawn();
             monsters.push_back(monster);
         }
@@ -127,7 +151,7 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
     if (monsterShootClock.getElapsedTime().asMilliseconds() >= 2500) {
         for (int i = 0; i < monsters.size(); i++) {
             Bullet bullet(MONSTER);
-            bullet.setSpeed(6.0f);
+            bullet.setSpeed(monsterBulletSpeed);
             bullet.setTexture(monsterBulletTexture);
             bullet.setPosition(
                     monsters[i].getPosition().x + (monsters[i].getGlobalBounds().width / 2) -

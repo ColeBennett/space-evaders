@@ -15,8 +15,6 @@ Engine::Engine()
     texture->loadFromFile("assets/bg.jpg");
     bgTexture = texture;
 
-    leaderboard.printLeaderBoard();
-
     state = MENU;
 }
 
@@ -192,8 +190,8 @@ void Engine::center(sf::Text &text, float y)
 
 /**
  * Checks if a button is pressed and change the view.
- * @param button 
- * @param toState new state 
+ * @param button
+ * @param toState new state
  * @param buttonColor default button color
  * @param highlightColor highlighted button color
  * @return true if the button is pressed

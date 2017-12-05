@@ -22,7 +22,7 @@ TutorialView::TutorialView(Engine &engine, sf::RenderWindow &window)
     instructions.setFont(engine.getFont());
     instructions.setFillColor(sf::Color(144, 224, 58));
     instructions.setCharacterSize(32);
-    engine.center(instructions, window.getSize().y * .25f);
+    engine.center(instructions, window.getSize().y * .23f);
 
     controls.setString("controls");
     controls.setFont(engine.getFont());
@@ -43,25 +43,25 @@ TutorialView::TutorialView(Engine &engine, sf::RenderWindow &window)
     up.setFont(engine.getFont());
     up.setFillColor(sf::Color::Yellow);
     up.setCharacterSize(30);
-    up.setPosition(window.getSize().x * .3f, window.getSize().y * .55f);
+    up.setPosition(window.getSize().x * .35f, window.getSize().y * .55f);
 
     down.setString("s: down");
     down.setFont(engine.getFont());
     down.setFillColor(sf::Color::Yellow);
     down.setCharacterSize(30);
-    down.setPosition(window.getSize().x * .6f, window.getSize().y * .55f);
+    down.setPosition(window.getSize().x * .54f, window.getSize().y * .55f);
 
     left.setString("a: left");
     left.setFont(engine.getFont());
     left.setFillColor(sf::Color::Yellow);
     left.setCharacterSize(30);
-    left.setPosition(window.getSize().x * .3f, window.getSize().y * .6f);
+    left.setPosition(window.getSize().x * .35f, window.getSize().y * .6f);
 
     right.setString("d: right");
     right.setFont(engine.getFont());
     right.setFillColor(sf::Color::Yellow);
     right.setCharacterSize(30);
-    right.setPosition(window.getSize().x * .6f, window.getSize().y * .6f);
+    right.setPosition(window.getSize().x * .54f, window.getSize().y * .6f);
 
     space.setString("space: shoot laser");
     space.setFont(engine.getFont());
@@ -91,6 +91,6 @@ void TutorialView::draw(Engine &engine, sf::RenderWindow &window)
     window.draw(right);
     window.draw(space);
 
-    engine.checkButton(toMenu, MENU, sf::Color::Green, sf::Color::Magenta);
+    engine.checkButton(toMenu, MENU, sf::Color::Green, sf::Color(166, 170, 178));
     window.draw(toMenu);
 }

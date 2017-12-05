@@ -8,7 +8,7 @@
 #include "time.h"
 #include "entity/Player.h"
 #include "SoundManager.h"
-#include "leaderboard/LeaderBoard.h"
+#include "leaderboard/Leaderboard.h"
 
 using std::cout;
 using std::endl;

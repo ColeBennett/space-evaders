@@ -50,7 +50,7 @@ GameView::GameView(Engine &engine, sf::RenderWindow &window)
 void GameView::reset(Engine &engine, sf::Window &window)
 {
     monsterBulletSpeed = 6.0f;
-    asteroidSpeed = 1.2f;
+    asteroidSpeed = 1.4f;
     asteroidSpawnRate = 500;
 
     scoreClock.restart();
@@ -105,14 +105,12 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
 
     /* modify asteroid spawn rate and speed */
     if (asteroidSpawnRateClock.getElapsedTime().asMilliseconds() >= 5000) {
-        if (asteroidSpawnRate >= 250) {
+        if (asteroidSpawnRate >= 275) {
             asteroidSpawnRate -= 10;
         }
-        std::cout << "asteroid spawn rate " << asteroidSpawnRate << " ms" << std::endl;
         if (asteroidSpeed < 5.5) {
             asteroidSpeed += 0.1f;
         }
-        std::cout << "asteroid speed " << asteroidSpeed << std::endl;
         asteroidSpawnRateClock.restart();
     }
 
@@ -136,7 +134,8 @@ void GameView::tick(Engine &engine, sf::RenderWindow &window)
             float size = (float) engine.random(0.8f, 1.0f);
             monster.setScale(size, size);
             monster.setTexture(monsterTexture);
-            monster.setPosition((float) engine.random(monster.getGlobalBounds().width, window.getSize().x - 50), 0);
+            monster.setPosition((float) engine.random(monster.getGlobalBounds().width,
+                                                      window.getSize().x - monster.getGlobalBounds().width), 0);
 
             /* increase the monster bullet speed for each new monster */
             monsterBulletSpeed += 0.15f;

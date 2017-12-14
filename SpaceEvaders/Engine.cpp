@@ -158,7 +158,7 @@ void Engine::run()
 
         frames++;
         if (clock.getElapsedTime().asMilliseconds() >= 1000) {
-            cout << "FPS: " << frames << endl;
+//            cout << "FPS: " << frames << endl;
             clock.restart();
             frames = 0;
         }

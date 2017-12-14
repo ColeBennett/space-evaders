@@ -25,7 +25,7 @@ void LeaderboardView::draw(Engine &engine, sf::RenderWindow &window)
     window.draw(bg);
     window.draw(title);
 
-    float y = window.getSize().y * .25f;
+    float y = window.getSize().y * .275f;
     int position = 1;
     LeaderboardEntry *pCur = engine.getLeaderboard().getHeadPtr();
     while (pCur != nullptr && position <= 10) {

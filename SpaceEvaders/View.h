@@ -2,12 +2,13 @@
 #define SPACEEVADERS_VIEW_H
 
 #include <SFML/Graphics.hpp>
+#include "Engine.h"
 
-/* Base class for all of the views */
+/* Abstract base class for all of the views */
 class View
 {
 public:
-    void draw(const sf::RenderWindow &window);
+    virtual void draw(Engine &engine, sf::RenderWindow &window) = 0;
 };
 
 #endif
